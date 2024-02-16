@@ -15,10 +15,11 @@ const postJob = async (req, res) => {
 
     } catch (err) {
         if (err instanceof mongoose.Error.ValidationError) {
-            const errorMessages = [];
+            const errorMessages = {};
             // Collect error messages from all validation failures
             for (const field in err.errors) {
-              errorMessages.push(err.errors[field].message);
+            //   errorMessages.push(err.errors[field].message);
+              errorMessages[field] = err.errors[field].message;
             }
             // Send error response with status code 400 (Bad Request)
             res.status(400).send({ errors: errorMessages });
